@@ -11,6 +11,11 @@ import { ProgressBarComponent } from '~core/components/progress-bar/progress-bar
 import { CookiePopupComponent } from '~core/components/cookie-popup/cookie-popup.component';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ToastStackComponent } from '~core/components/toast-stack/toast-stack.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -19,11 +24,17 @@ import { ToastStackComponent } from '~core/components/toast-stack/toast-stack.co
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
     HeaderComponent,
     FooterComponent,
     ProgressBarComponent,
     CookiePopupComponent,
     ToastStackComponent,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatButtonModule,
   ],
 })
 export class AppComponent {
@@ -39,6 +50,16 @@ export class AppComponent {
     ),
     { initialValue: this.router.url },
   );
+
+  // Sidenav navigation items with correct routes
+  readonly navigationItems = [
+    { label: 'Home', icon: 'home', route: '/', exact: true },
+    { label: 'Explore Pokemon', icon: 'explore', route: '/pokemon', exact: false },
+    { label: 'My Collection', icon: 'favorite', route: '/my-pokemon', exact: true },
+    { label: 'Sign In', icon: 'login', route: '/auth/log-in', exact: true },
+    { label: 'Register', icon: 'person_add', route: '/auth/register', exact: true },
+    { label: 'Profile', icon: 'account_circle', route: '/auth/my-account', exact: true },
+  ];
 
   constructor() {
     this.titleService.setTitle(translations.title);

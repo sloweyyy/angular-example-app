@@ -1,13 +1,106 @@
 @use 'base/media-queries' as mq;
 
-$page-max-width: 2560px;
-
 :host {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
   min-height: 100vh;
   margin-inline: auto;
+
+  .app__sidenav-container {
+    width: 100%;
+    height: 100vh;
+
+    .app__sidenav {
+      width: 280px;
+      border-right: 1px solid #e0e0e0;
+      background: #ffffff;
+      box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+
+      .app__sidenav-header {
+        padding: 24px 16px;
+        border-bottom: 1px solid #e0e0e0;
+        background: linear-gradient(135deg, #1976d2, #1565c0);
+        color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        h2 {
+          margin: 0;
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: 0.5px;
+          text-align: center;
+        }
+      }
+
+      mat-nav-list {
+        padding: 16px 0;
+
+        mat-list-item {
+          margin: 0 8px 4px;
+          border-radius: 8px;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background: #f5f7fa;
+            transform: translateX(4px);
+          }
+
+          .app__nav-link {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 16px;
+            text-decoration: none;
+            color: #2c3e50;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+
+            mat-icon {
+              margin-right: 16px;
+              color: #64748b;
+              font-size: 20px;
+              width: 20px;
+              height: 20px;
+              transition: all 0.3s ease;
+            }
+
+            span {
+              font-size: 16px;
+              font-weight: 500;
+              letter-spacing: 0.25px;
+            }
+
+            &:hover {
+              color: #1976d2;
+              background: #e3f2fd;
+
+              mat-icon {
+                color: #1976d2;
+                transform: scale(1.1);
+              }
+            }
+
+            &.active {
+              color: white;
+              background: linear-gradient(135deg, #1976d2, #1565c0);
+              box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+
+              mat-icon {
+                color: white;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .app__main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #f8fafc;
+    }
+  }
 
   .app__main-container {
     display: flex;
@@ -17,14 +110,16 @@ $page-max-width: 2560px;
 
     .app__page-container {
       display: grid;
+      flex: 1;
+      padding: 16px;
     }
   }
 
   .app__content-skip-button {
     position: absolute;
     top: var(--spacing-r-md);
-    left: var(--spacing-r-md);
-    z-index: var(--z-index-skip-button);
+    left: calc(280px + var(--spacing-r-md));
+    z-index: 1000;
     padding: var(--spacing-r-md);
     font-size: var(--font-size-xs);
     color: var(--page-background);
@@ -36,6 +131,51 @@ $page-max-width: 2560px;
 
     &:focus {
       transform: translateY(0);
+    }
+  }
+}
+
+@include mq.for-phone-only {
+  :host {
+    .app__sidenav-container {
+      .app__sidenav {
+        width: 240px;
+
+        .app__sidenav-header {
+          padding: 16px 12px;
+
+          h2 {
+            font-size: 18px;
+          }
+        }
+
+        mat-nav-list {
+          padding: 8px 0;
+
+          mat-list-item {
+            margin: 0 4px 4px;
+
+            .app__nav-link {
+              padding: 12px;
+
+              mat-icon {
+                margin-right: 12px;
+                font-size: 18px;
+                width: 18px;
+                height: 18px;
+              }
+
+              span {
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+
+      .app__content-skip-button {
+        left: calc(240px + var(--spacing-r-md));
+      }
     }
   }
 }

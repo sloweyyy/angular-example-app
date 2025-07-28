@@ -3,11 +3,37 @@
 <button i18n class="app__content-skip-button" type="button" (click)="focusFirstHeading()">
   Skip to main content
 </button>
-<div class="app__main-container">
-  <app-header />
-  <div class="app__page-container">
-    <app-cookie-popup />
-    <router-outlet />
-  </div>
-  <app-footer />
-</div>
+
+<mat-sidenav-container class="app__sidenav-container">
+  <!-- Persistent Sidebar -->
+  <mat-sidenav mode="side" opened="true" class="app__sidenav">
+
+    <div class="app__sidenav-header">
+      <h2 i18n>Angular Example App</h2>
+    </div>
+
+    <mat-nav-list>
+      @for (item of navigationItems; track item.route) {
+      <mat-list-item>
+        <a matListItemLine class="app__nav-link" routerLinkActive="active" [routerLink]="item.route"
+          [routerLinkActiveOptions]="{ exact: item.exact }">
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          <span>{{ item.label }}</span>
+        </a>
+      </mat-list-item>
+      }
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- Main Content -->
+  <mat-sidenav-content class="app__main-content">
+    <div class="app__main-container">
+      <app-header />
+      <div class="app__page-container">
+        <app-cookie-popup />
+        <router-outlet />
+      </div>
+      <app-footer />
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
